@@ -1,0 +1,11 @@
+##########################################
+############# Install Nginx ##############
+##########################################
+
+---
+- name: Install Nginx web server
+  hosts: all
+  become: yes
+  roles:
+    - deploy_nginx_backend
+    - deploy_nginx_lb

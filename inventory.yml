@@ -1,0 +1,3 @@
+[centos]
+dev1.SBabanin4 ansible_host=37.228.116.19
+dev2.SBabanin4 ansible_host=37.228.116.52

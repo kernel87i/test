@@ -1,0 +1,52 @@
+---
+# tasks file for common
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Add group "nginx" exists
+  group:
+     name: nginx
+     state: present
+
+- name: Add the user 'nginx'
+  user:
+    name: nginx
+    shell: /bin/false
+    groups: nginx
+
+- name: Install ufw (Debian/Ubuntu)
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ 60*60*4 }}"
+  with_items:
+    - ufw
+
+
+- name: Port forwarding virtual host  ufw
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+
+- name: Port forwarding virtual host  ufw
+  ufw:
+    rule: allow
+    port: '443'
+    proto: tcp
+
+- name: Port forwarding virtual host  ufw
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+
+- name: Start/reload ufw
+  ufw:
+    state: enabled
+    policy: deny
+
+

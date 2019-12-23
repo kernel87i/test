@@ -1,0 +1,57 @@
+---
+
+- name: Check LINUX version
+  debug:
+    var: ansible_os_family
+
+- name: Install Nginx default web server
+  yum:
+    name: nginx
+    state: present
+
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- block: # ==== Debian install ====
+
+  - name: Removing default nginx
+    file:
+      path: /etc/nginx/nginx.conf
+      state: absent
+
+  - name: Adding nginx configuration
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify: Reload Nginx
+
+  - name: Adding  configuration site http
+    template:
+      src: site.conf.j2
+      dest: /etc/nginx/conf.d/site.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify: Reload Nginx
+
+  - name: Copy file index example  with owner and permissions
+    copy:
+      src: "{{ item }}"
+      dest: "{{ root_directory }}"
+      owner: root
+      group: root
+      mode: 0644
+    loop:
+      - "index.site2.html"
+    notify: Reload Nginx
+
+  when: ansible_os_family == "Debian"
+
+

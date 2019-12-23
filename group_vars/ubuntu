@@ -1,0 +1,18 @@
+---
+
+domain_name           : sbabanin4.devops.rebrain.srwx.net
+index                 : index.site2.html
+root_directory        : /var/www/html/
+worker_processes      : 2
+worker_connections    : 2048
+nginx_log_dir         : "/var/log/nginx"
+nginx_access_log_name : "access.log"
+nginx_error_log_name  : "error.log"
+
+nginx_http_params:
+  sendfile            : "on"
+  tcp_nopush          : "on"
+  tcp_nodelay         : "off"
+  keepalive_timeout   : "65"
+  gzip                : "on"
+

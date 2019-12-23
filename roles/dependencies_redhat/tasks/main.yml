@@ -1,0 +1,29 @@
+---
+# tasks file for dependencies_redhat
+
+- name: Install firewalld (Readhat/Centos)
+  yum:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - firewalld
+
+- name: Port 80 forwarding virtual host  firewalld
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+  notify: Restart firewalld
+
+- name: Port 443 forwarding virtual host  firewalld
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+  notify: Restart firewalld
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
