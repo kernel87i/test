@@ -1,15 +1,11 @@
 ---
 
-domain_name           : sbabanin3.devops.rebrain.srwx.net
+domain_name           : sbabanin4.devops.rebrain.srwx.net
 worker_processes      : 2
 worker_connections    : 2048
 nginx_log_dir         : "/var/log/nginx"
 nginx_access_log_name : "access.log"
 nginx_error_log_name  : "error.log"
-prometheus_components : [ "prometheus", "alertmanager", "node_exporter" ]
-prometheus_alertmanager_hostport: "localhost:9093"
-letsencrypt_ssl_dir   : /etc/letsencrypt/live
-password              : 123
 
 nginx_http_params:
   sendfile            : "on"

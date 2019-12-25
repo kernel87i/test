@@ -31,7 +31,6 @@ connection {
   private_key = "${file("~/.ssh/id_rsa")}"
   host = self.public_address
  }
-
 }
 
 resource "random_string" "password" {
@@ -67,13 +66,18 @@ resource "aws_route53_record" "SBabanin4" {
   allow_overwrite = true
 }
 
-resource "local_file" "ansible_inventory" {
-  count    = "${length(var.test)}"
-  content = "[${var.group_name}]\n${join("\n", formatlist(
-                "%s ansible_host=%s",
-                vscale_scalet.test.*.name,
-                vscale_scalet.test.*.public_address
-              )
-          )}"
-   filename = "inventory.yml"
+
+
+resource "local_file" "inventory" {
+    content    = templatefile("inventory.tpl",{
+     ip_addrs  = vscale_scalet.test[*].public_address
+    })
+    filename   = "inventory.yml"
+
+
+  provisioner "local-exec" {
+    command = <<EOT
+    ansible-playbook -i inventory.yml  playbook.yml
+    EOT
+  }
 }

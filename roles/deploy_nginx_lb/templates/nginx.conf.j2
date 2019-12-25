@@ -15,7 +15,7 @@ http {
 
     upstream backend {
 
-       server 37.228.116.19;
+       server 79.143.31.113;
     }
 
     include       /etc/nginx/mime.types;
@@ -33,7 +33,7 @@ http {
 
     gzip_types  application/json;
     include /etc/nginx/conf.d/*.conf;
-}
+
 
 server {
 
@@ -49,4 +49,5 @@ server {
         proxy_pass http://backend;
 
     }
+}
 }
