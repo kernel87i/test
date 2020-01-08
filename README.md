@@ -18,7 +18,7 @@
 * Описываем в фале outputs.tf выводимые значения
 * Переменные объявляем в файле terraform.tfvars (В файле объявляем токен, имя образа, Id дата-центра,secret_key, access_key для AWS, регион для AWS)
 * В файле terraform.tfvars.sample описано назначение переменных
-* Развертываем 2 роли: deploy_nginx_lb и deploy_nginx_backend. Для ролей используем dependencies  в зависимости от платформы 
+* Развертываем 2 роли: deploy_nginx_lb и deploy_nginx_backend. Для ролей используем dependencies  в зависимости от платформы. 
 
 
 ## Ansible Roles
